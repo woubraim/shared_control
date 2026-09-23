@@ -263,6 +263,8 @@ shared_control/
 ├── CMakeLists.txt
 ├── package.xml
 └── README.md
+```
+
 ## Dependencies
 
 This package requires ROS 2 jazzy.
