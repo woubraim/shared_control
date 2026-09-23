@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>visual_servoing</name>
+  <name>shared_control</name>
   <version>0.0.0</version>
   <description>Visual servoing package using AprilTag detections.</description>
   <maintainer email="oubraim@isir.upmc.fr">woubraim</maintainer>
@@ -27,6 +27,8 @@
   <depend>eigen</depend>
   <depend>extender_msgs</depend>
   <depend>yaml-cpp</depend>
+
+  <depend>ament_index_cpp</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

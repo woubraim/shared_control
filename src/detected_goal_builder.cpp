@@ -3,17 +3,17 @@
  * @brief Builds visual_servoing detected-goal messages.
  */
 
-#include "visual_servoing/detected_goal_builder.hpp"
+#include "shared_control/detected_goal_builder.hpp"
 
-#include "visual_servoing/msg/detected_goal.hpp"
+#include "shared_control/msg/detected_goal.hpp"
 
 
-visual_servoing::msg::DetectedGoalArray DetectedGoalBuilder::createMessage(
+shared_control::msg::DetectedGoalArray DetectedGoalBuilder::createMessage(
     const rclcpp::Time &stamp,
     const std::string &frame_id
 )
 {
-    visual_servoing::msg::DetectedGoalArray message;
+    shared_control::msg::DetectedGoalArray message;
     message.header.stamp = stamp;
     message.header.frame_id = frame_id;
 
@@ -22,13 +22,13 @@ visual_servoing::msg::DetectedGoalArray DetectedGoalBuilder::createMessage(
 
 
 void DetectedGoalBuilder::addGoal(
-    visual_servoing::msg::DetectedGoalArray &message,
+    shared_control::msg::DetectedGoalArray &message,
     int tag_id,
     const geometry_msgs::msg::Pose &pose,
     const std::string &frame_id
 )
 {
-    visual_servoing::msg::DetectedGoal detected_goal;
+    shared_control::msg::DetectedGoal detected_goal;
     detected_goal.id = tag_id;
     detected_goal.pose = pose;
 

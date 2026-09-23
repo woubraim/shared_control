@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(visual_servoing)
+project(shared_control)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -19,6 +19,9 @@ find_package(std_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
+
+find_package(apriltag REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 
 find_package(cv_bridge REQUIRED)
 find_package(OpenCV REQUIRED)
@@ -64,9 +67,7 @@ add_executable(save_goal_manager
 
 target_include_directories(visual_servoing_node PUBLIC
   include
-  third_party
-  third_party/apriltag
-  third_party/apriltag/common
+  apriltag
   ${CMAKE_CURRENT_BINARY_DIR}/rosidl_generator_cpp
   ${OpenCV_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIRS}
@@ -95,6 +96,7 @@ ament_target_dependencies(handeye_tf_publisher
   geometry_msgs
   tf2
   tf2_ros
+  ament_index_cpp
 )
 
 ament_target_dependencies(shared_control_visualization_node
@@ -125,6 +127,7 @@ target_link_libraries(visual_servoing_node
 
 target_link_libraries(handeye_tf_publisher
   ${OpenCV_LIBRARIES}
+  ament_index_cpp::ament_index_cpp
 )
 
 target_include_directories(shared_control_visualization_node PUBLIC

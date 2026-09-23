@@ -7,13 +7,13 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    visual_servoing_share = get_package_share_directory("visual_servoing")
+    visual_servoing_share = get_package_share_directory("shared_control")
     yaml_dir = os.path.join(visual_servoing_share, "yaml")
 
     handeye_yaml_path = os.path.join(yaml_dir, "handeye_tf.yaml")
     saved_goals_yaml_path = os.path.join(yaml_dir, "saved_tag_goals.yaml")
     visual_servoing_node = Node(
-        package="visual_servoing",
+        package="shared_control",
         executable="visual_servoing_node",
         name="visual_servoing_node",
         output="screen",
@@ -28,7 +28,7 @@ def generate_launch_description():
     )
 
     save_goal_manager = Node(
-        package="visual_servoing",
+        package="shared_control",
         executable="save_goal_manager",
         name="save_goal_manager",
         output="screen",
@@ -44,7 +44,7 @@ def generate_launch_description():
     )
 
     shared_control_visualization_node = Node(
-        package="visual_servoing",
+        package="shared_control",
         executable="shared_control_visualization_node",
         name="shared_control_visualization_node",
         output="screen",

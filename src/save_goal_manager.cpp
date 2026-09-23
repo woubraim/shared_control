@@ -33,8 +33,8 @@
 
 #include <yaml-cpp/yaml.h>
 
-#include "visual_servoing/msg/detected_goal_array.hpp"
-#include "visual_servoing/srv/save_current_tag_goal.hpp"
+#include "shared_control/msg/detected_goal_array.hpp"
+#include "shared_control/srv/save_current_tag_goal.hpp"
 #include "extender_msgs/msg/shared_control_goal.hpp"
 #include "extender_msgs/msg/shared_control_goal_array.hpp"
 
@@ -94,8 +94,8 @@ private:
     // ROS interfaces
     // -------------------------------------------------------------------------
 
-    rclcpp::Subscription<visual_servoing::msg::DetectedGoalArray>::SharedPtr detected_goals_sub_;
-    rclcpp::Service<visual_servoing::srv::SaveCurrentTagGoal>::SharedPtr save_srv_;
+    rclcpp::Subscription<shared_control::msg::DetectedGoalArray>::SharedPtr detected_goals_sub_;
+    rclcpp::Service<shared_control::srv::SaveCurrentTagGoal>::SharedPtr save_srv_;
 
     tf2_ros::Buffer tf_buffer_;
     tf2_ros::TransformListener tf_listener_;
@@ -127,12 +127,12 @@ private:
 
     void initializeRosInterfaces()
     {
-        detected_goals_sub_ = create_subscription<visual_servoing::msg::DetectedGoalArray>(
+        detected_goals_sub_ = create_subscription<shared_control::msg::DetectedGoalArray>(
             detected_goals_topic_,
             10,
             std::bind(&SavedGoalManagerNode::detectedGoalsCallback, this, std::placeholders::_1));
 
-        save_srv_ = create_service<visual_servoing::srv::SaveCurrentTagGoal>(
+        save_srv_ = create_service<shared_control::srv::SaveCurrentTagGoal>(
             save_service_name_,
             std::bind(
                 &SavedGoalManagerNode::saveCurrentTagGoalCallback,
@@ -166,7 +166,7 @@ private:
         }
     }*/
 
-    void detectedGoalsCallback(const visual_servoing::msg::DetectedGoalArray::SharedPtr msg)
+    void detectedGoalsCallback(const shared_control::msg::DetectedGoalArray::SharedPtr msg)
     {
         {
             std::lock_guard<std::mutex> lock(latest_tags_mutex_);
@@ -184,8 +184,8 @@ private:
     }
 
     void saveCurrentTagGoalCallback(
-        const std::shared_ptr<visual_servoing::srv::SaveCurrentTagGoal::Request> request,
-        std::shared_ptr<visual_servoing::srv::SaveCurrentTagGoal::Response> response)
+        const std::shared_ptr<shared_control::srv::SaveCurrentTagGoal::Request> request,
+        std::shared_ptr<shared_control::srv::SaveCurrentTagGoal::Response> response)
     {
         const int tag_id = request->tag_id;
         const std::string label = request->label.empty() ? "pose" : request->label;

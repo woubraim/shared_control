@@ -7,7 +7,7 @@ geometry_msgs/Vector3 assisted_linear_velocity
 geometry_msgs/PoseStamped soft_goal_pose
 geometry_msgs/PoseStamped agnostic_goal_pose
 
-visual_servoing/SharedControlGoalDebug[] goals
+shared_control/SharedControlGoalDebug[] goals
 
 float64 theta_l_rad
 float64 r1

@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "visual_servoing/srv/save_current_tag_goal.hpp"
+#include "shared_control/srv/save_current_tag_goal.hpp"
 
 
 /**
@@ -77,14 +77,14 @@ private:
      */
     void handleSaveResponse(
         int tag_id,
-        rclcpp::Client<visual_servoing::srv::SaveCurrentTagGoal>::SharedFuture future
+        rclcpp::Client<shared_control::srv::SaveCurrentTagGoal>::SharedFuture future
     );
 
     /// Node pointer used for logging and service creation.
     rclcpp::Node *node_ = nullptr;
 
     /// Client for /visual_servoing/save_current_tag_goal.
-    rclcpp::Client<visual_servoing::srv::SaveCurrentTagGoal>::SharedPtr client_;
+    rclcpp::Client<shared_control::srv::SaveCurrentTagGoal>::SharedPtr client_;
 
     /// User-facing status displayed near the SAVE POSE button.
     std::string status_ = "Ready";

@@ -29,8 +29,8 @@
 #include <visualization_msgs/msg/marker.hpp>
 #include <visualization_msgs/msg/marker_array.hpp>
 
-#include "visual_servoing/msg/shared_control_debug.hpp"
-#include "visual_servoing/msg/shared_control_goal_debug.hpp"
+#include "shared_control/msg/shared_control_debug.hpp"
+#include "shared_control/msg/shared_control_goal_debug.hpp"
 
 class SharedControlVisualizationNode : public rclcpp::Node
 {
@@ -80,7 +80,7 @@ private:
   // -------------------------------------------------------------------------
 
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr marker_pub_;
-  rclcpp::Subscription<visual_servoing::msg::SharedControlDebug>::SharedPtr debug_sub_;
+  rclcpp::Subscription<shared_control::msg::SharedControlDebug>::SharedPtr debug_sub_;
 
   // -------------------------------------------------------------------------
   // Initialization
@@ -151,7 +151,7 @@ private:
 
   void initializeSubscribers()
   {
-    debug_sub_ = create_subscription<visual_servoing::msg::SharedControlDebug>(
+    debug_sub_ = create_subscription<shared_control::msg::SharedControlDebug>(
         "/shared_control/debug",
         10,
         std::bind(&SharedControlVisualizationNode::debugCallback, this, std::placeholders::_1));
@@ -161,7 +161,7 @@ private:
   // Callback
   // -------------------------------------------------------------------------
 
-  void debugCallback(const visual_servoing::msg::SharedControlDebug::SharedPtr msg)
+  void debugCallback(const shared_control::msg::SharedControlDebug::SharedPtr msg)
   {
     visualization_msgs::msg::MarkerArray markers;
     addClearMarker(markers, msg->header);
@@ -527,7 +527,7 @@ private:
     markers.markers.push_back(marker);
   }
 
-  std::string makeGoalLabel(const visual_servoing::msg::SharedControlGoalDebug &goal,
+  std::string makeGoalLabel(const shared_control::msg::SharedControlGoalDebug &goal,
                             double theta_l_rad) const
   {
     std::ostringstream oss;

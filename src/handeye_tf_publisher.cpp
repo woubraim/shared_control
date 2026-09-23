@@ -31,6 +31,8 @@
 
 #include <opencv2/core.hpp>
 
+#include "ament_index_cpp/get_package_share_directory.hpp"
+
 
 struct HandEyeCalibration
 {
@@ -54,7 +56,8 @@ public:
     HandEyeTfPublisher()
         : Node("handeye_tf_publisher")
     {
-        declare_parameter<std::string>("yaml_path", "/home/woubraim/extender_ws/src/visual_servoing/yaml/handeye_tf.yaml");
+        std::string default_yaml_path = ament_index_cpp::get_package_share_directory("shared_control") + "/yaml/handeye_tf.yaml";
+        declare_parameter<std::string>("yaml_path", default_yaml_path);
 
         const std::string yaml_path =
             get_parameter("yaml_path").as_string();

@@ -24,7 +24,8 @@
 #include <geometry_msgs/msg/pose.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
 
-#include <cv_bridge/cv_bridge.h>
+//#include <cv_bridge/cv_bridge.hpp>
+#include <cv_bridge/cv_bridge.hpp>
 #include <opencv2/opencv.hpp>
 
 #include <tf2_ros/buffer.h>
@@ -35,14 +36,14 @@
 #include <string>
 #include <vector>
 
-#include "visual_servoing/apriltag_pose_estimator.hpp"
-#include "visual_servoing/camera_config.hpp"
-#include "visual_servoing/visual_servoing_display.hpp"
-#include "visual_servoing/pose_transformer.hpp"
-#include "visual_servoing/detected_goal_builder.hpp"
-#include "visual_servoing/pose_save_client.hpp"
+#include "shared_control/apriltag_pose_estimator.hpp"
+#include "shared_control/camera_config.hpp"
+#include "shared_control/visual_servoing_display.hpp"
+#include "shared_control/pose_transformer.hpp"
+#include "shared_control/detected_goal_builder.hpp"
+#include "shared_control/pose_save_client.hpp"
 
-#include "visual_servoing/msg/detected_goal_array.hpp"
+#include "shared_control/msg/detected_goal_array.hpp"
 
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
@@ -123,10 +124,10 @@ private:
     rclcpp::Subscription<sensor_msgs::msg::CameraInfo>::SharedPtr camera_info_sub_;
 
     /// Publisher for detected tag goals.
-    rclcpp::Publisher<visual_servoing::msg::DetectedGoalArray>::SharedPtr detected_goals_pub_;
+    rclcpp::Publisher<shared_control::msg::DetectedGoalArray>::SharedPtr detected_goals_pub_;
 
     /// Publisher for raw AprilTag pose in camera frame.
-    rclcpp::Publisher<visual_servoing::msg::DetectedGoalArray>::SharedPtr tag_pose_camera_pub_;
+    rclcpp::Publisher<shared_control::msg::DetectedGoalArray>::SharedPtr tag_pose_camera_pub_;
 
     std::unique_ptr<tf2_ros::TransformBroadcaster> tag_tf_broadcaster_;
 
@@ -292,12 +293,12 @@ private:
     void initializeRosInterfaces()
     {
         detected_goals_pub_ =
-            this->create_publisher<visual_servoing::msg::DetectedGoalArray>(
+            this->create_publisher<shared_control::msg::DetectedGoalArray>(
                 "/visual_servoing/detected_goals",
                 10
             );
         tag_pose_camera_pub_ =
-            this->create_publisher<visual_servoing::msg::DetectedGoalArray>(
+            this->create_publisher<shared_control::msg::DetectedGoalArray>(
                 "/visual_servoing/tag_pose_camera",
                 10
             );
@@ -502,8 +503,8 @@ private:
         const rclcpp::Time &image_stamp,
         const std::string &image_frame_id,
         cv::Mat &color,
-        visual_servoing::msg::DetectedGoalArray &detected_goals_msg,
-        visual_servoing::msg::DetectedGoalArray &tag_pose_camera_msg
+        shared_control::msg::DetectedGoalArray &detected_goals_msg,
+        shared_control::msg::DetectedGoalArray &tag_pose_camera_msg
     )
     {
         for (const auto &detected_tag : detected_tags)
@@ -530,8 +531,8 @@ private:
         const rclcpp::Time &image_stamp,
         const std::string &image_frame_id,
         cv::Mat &color,
-        visual_servoing::msg::DetectedGoalArray &detected_goals_msg,
-        visual_servoing::msg::DetectedGoalArray &tag_pose_camera_msg
+        shared_control::msg::DetectedGoalArray &detected_goals_msg,
+        shared_control::msg::DetectedGoalArray &tag_pose_camera_msg
     )
     {
         geometry_msgs::msg::PoseStamped tag_pose_camera_stamped;
