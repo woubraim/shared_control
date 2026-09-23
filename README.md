@@ -1,8 +1,8 @@
-# Visual Servoing
+# Shared Control
 
-ROS 2 package for AprilTag-based visual servoing experiments.
+ROS 2 package for AprilTag-based Shared Control experiments.
 
-This package detects AprilTags from a camera stream, estimates their 3D pose, displays the detections in an OpenCV window, and publishes detected goals for future visual servoing control.
+This package detects AprilTags from a camera stream, estimates their 3D pose, displays the detections in an OpenCV window, and publishes detected goals for future Shared Control control.
 
 The node supports two camera setups:
 
@@ -15,7 +15,7 @@ If the robot TF tree is not available, the node still displays the detected tags
 
 This package can be tested with either an OAK camera or an Intel RealSense camera.
 
-The visual servoing node does not launch the camera by itself. The camera driver must be launched first in a separate terminal.
+The Shared Control node does not launch the camera by itself. The camera driver must be launched first in a separate terminal.
 
 ---
 
@@ -23,7 +23,7 @@ The visual servoing node does not launch the camera by itself. The camera driver
 
 The OAK camera is used through the DepthAI ROS driver.
 
-For ROS 2 Humble, the v3 driver package uses the `_v3` suffix, for example:
+For ROS 2 jazzy, the v3 driver package uses the `_v3` suffix, for example:
 
 ```text
 depthai_ros_driver_v3
@@ -39,7 +39,7 @@ https://docs.luxonis.com/software-v3/depthai/ros/driver
 
 ```bash
 sudo apt update
-sudo apt install ros-humble-depthai-ros-v3
+sudo apt install ros-jazzy-depthai-ros-v3
 ```
 
 If the package is not found, enable the ROS testing repository as described in the Luxonis documentation:
@@ -47,7 +47,7 @@ If the package is not found, enable the ROS testing repository as described in t
 ```bash
 sudo apt install ros2-testing-apt-source
 sudo apt update
-sudo apt install ros-humble-depthai-ros-v3
+sudo apt install ros-jazzy-depthai-ros-v3
 ```
 
 ### Verify OAK camera
@@ -72,7 +72,7 @@ ros2 launch depthai_ros_driver_v3 driver.launch.py
 
 ### Launch OAK camera for this package
 
-For this visual servoing package, launch the OAK camera with depth disabled and a custom RGB configuration file:
+For this Shared Control package, launch the OAK camera with depth disabled and a custom RGB configuration file:
 
 ```bash
 ros2 launch depthai_ros_driver_v3 driver.launch.py \
@@ -80,7 +80,7 @@ ros2 launch depthai_ros_driver_v3 driver.launch.py \
   params_file:=/home/woubraim/oak_1080.yaml
 ```
 
-The visual servoing node expects the following topics:
+The Shared Control node expects the following topics:
 
 ```text
 /oak/rgb/image_raw
@@ -155,7 +155,7 @@ Install the ROS 2 RealSense wrapper:
 
 ```bash
 sudo apt update
-sudo apt install ros-humble-realsense2-camera
+sudo apt install ros-jazzy-realsense2-camera
 ```
 
 ### Launch RealSense camera for this package
@@ -167,7 +167,7 @@ ros2 launch realsense2_camera rs_launch.py \
   rgb_camera.color_profile:=1920,1080,30
 ```
 
-The visual servoing node expects the following topics:
+The Shared Control node expects the following topics:
 
 ```text
 /camera/camera/color/image_raw
@@ -201,7 +201,7 @@ ros2 topic echo /camera/camera/color/camera_info --once
 | OAK | `/oak/rgb/image_raw` | `/oak/rgb/camera_info` |
 | RealSense | `/camera/camera/color/image_raw` | `/camera/camera/color/camera_info` |
 
-The selected camera is controlled with the `camera_type` parameter of the visual servoing node:
+The selected camera is controlled with the `camera_type` parameter of the Shared Control node:
 
 ```bash
 -p camera_type:=oak
@@ -247,13 +247,13 @@ visual_servoing/
 └── README.md
 ## Dependencies
 
-This package requires ROS 2 Humble.
+This package requires ROS 2 jazzy.
 
 Install common ROS dependencies:
 
 ```bash
 sudo apt update
-sudo apt install ros-humble-cv-bridge ros-humble-tf2-ros ros-humble-tf2-geometry-msgs
+sudo apt install ros-jazzy-cv-bridge ros-jazzy-tf2-ros ros-jazzy-tf2-geometry-msgs
 ```
 
 It also requires OpenCV, Eigen3, and AprilTag.
@@ -288,7 +288,7 @@ From the workspace root:
 ```bash
 cd ~/extender_ws/visual_servoing_ws
 
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 
 colcon build --symlink-install
 
@@ -309,7 +309,7 @@ ros2 launch depthai_ros_driver_v3 driver.launch.py \
   params_file:=/home/woubraim/oak_1080.yaml
 ```
 
-The visual servoing node expects the following topics:
+The Shared Control node expects the following topics:
 
 ```text
 /oak/rgb/image_raw
@@ -327,7 +327,7 @@ ros2 launch realsense2_camera rs_launch.py \
   rgb_camera.color_profile:=1920,1080,30
 ```
 
-The visual servoing node expects the following topics:
+The Shared Control node expects the following topics:
 
 ```text
 /camera/camera/color/image_raw
@@ -336,14 +336,14 @@ The visual servoing node expects the following topics:
 
 ---
 
-## Run visual servoing node
+## Run Shared Control node
 
 ### With OAK camera
 
 ```bash
 cd ~/extender_ws/visual_servoing_ws
 
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 source install/setup.bash
 
 ros2 run visual_servoing visual_servoing_node --ros-args -p camera_type:=oak
@@ -354,7 +354,7 @@ ros2 run visual_servoing visual_servoing_node --ros-args -p camera_type:=oak
 ```bash
 cd ~/extender_ws/visual_servoing_ws
 
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 source install/setup.bash
 
 ros2 run visual_servoing visual_servoing_node --ros-args -p camera_type:=realsense
@@ -470,7 +470,7 @@ Terminal 2, run the node:
 ```bash
 cd ~/extender_ws/visual_servoing_ws
 
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 source install/setup.bash
 
 ros2 run visual_servoing visual_servoing_node --ros-args -p camera_type:=oak
@@ -479,7 +479,7 @@ ros2 run visual_servoing visual_servoing_node --ros-args -p camera_type:=oak
 Terminal 3, check detections:
 
 ```bash
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 source ~/extender_ws/visual_servoing_ws/install/setup.bash
 
 ros2 topic echo /visual_servoing/detected_goals
@@ -501,7 +501,7 @@ Terminal 2, run the node:
 ```bash
 cd ~/extender_ws/visual_servoing_ws
 
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 source install/setup.bash
 
 ros2 run visual_servoing visual_servoing_node --ros-args -p camera_type:=realsense
@@ -510,7 +510,7 @@ ros2 run visual_servoing visual_servoing_node --ros-args -p camera_type:=realsen
 Terminal 3, check detections:
 
 ```bash
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 source ~/extender_ws/visual_servoing_ws/install/setup.bash
 
 ros2 topic echo /visual_servoing/detected_goals
