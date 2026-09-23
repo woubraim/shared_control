@@ -231,17 +231,35 @@ or:
 ```text
 shared_control/
 ├── include/shared_control/
+│   ├── apriltag_pose_estimator.hpp
+│   ├── camera_config.hpp
+│   ├── detected_goal_builder.hpp
+│   ├── pose_save_client.hpp
+│   ├── pose_transformer.hpp
 │   └── visual_servoing_display.hpp
+├── launch/
+│   ├── visual_servoing.launch.py
+│   └── visual_servoing_calibration.launch.py
 ├── msg/
 │   ├── DetectedGoal.msg
-│   └── DetectedGoalArray.msg
+│   ├── DetectedGoalArray.msg
+│   └── SharedControlDebug.msg
 ├── srv/
 │   └── SaveCurrentTagGoal.srv
 ├── src/
-│   ├── visual_servoing_node.cpp
-│   └── visual_servoing_display.cpp
-├── third_party/
-│   └── apriltag/
+│   ├── apriltag_pose_estimator.cpp
+│   ├── camera_config.cpp
+│   ├── detected_goal_builder.cpp
+│   ├── handeye_tf_publisher.cpp
+│   ├── pose_save_client.cpp
+│   ├── pose_transformer.cpp
+│   ├── save_goal_manager.cpp
+│   ├── shared_control_visualization_node.cpp
+│   ├── visual_servoing_display.cpp
+│   └── visual_servoing_node.cpp
+├── yaml/
+│   ├── handeye_tf.yaml
+│   └── saved_tag_goals.yaml
 ├── CMakeLists.txt
 ├── package.xml
 └── README.md
@@ -253,7 +271,7 @@ Install common ROS dependencies:
 
 ```bash
 sudo apt update
-sudo apt install ros-jazzy-cv-bridge ros-jazzy-tf2-ros ros-jazzy-tf2-geometry-msgs
+sudo apt install ros-jazzy-cv-bridge ros-jazzy-tf2-ros ros-jazzy-tf2-geometry-msgs ros-jazzy-ament-index-cpp
 ```
 
 It also requires OpenCV, Eigen3, and AprilTag.
@@ -290,7 +308,7 @@ cd ~/workspace/extender/extender_workspace
 
 source /opt/ros/jazzy/setup.bash
 
-colcon build --symlink-install
+colcon build --packages-select shared_control --symlink-install
 
 source install/setup.bash
 ```
