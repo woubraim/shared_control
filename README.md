@@ -77,7 +77,7 @@ For this Shared Control package, launch the OAK camera with depth disabled and a
 ```bash
 ros2 launch depthai_ros_driver_v3 driver.launch.py \
   enable_depth:=false \
-  params_file:=/home/woubraim/oak_1080.yaml
+  params_file:=$HOME/oak_1080.yaml
 ```
 
 The Shared Control node expects the following topics:
@@ -229,8 +229,8 @@ or:
 ## Package structure
 
 ```text
-visual_servoing/
-├── include/visual_servoing/
+shared_control/
+├── include/shared_control/
 │   └── visual_servoing_display.hpp
 ├── msg/
 │   ├── DetectedGoal.msg
@@ -286,7 +286,7 @@ libapriltag.so
 From the workspace root:
 
 ```bash
-cd ~/extender_ws/visual_servoing_ws
+cd ~/workspace/extender/extender_workspace
 
 source /opt/ros/jazzy/setup.bash
 
@@ -306,7 +306,7 @@ Launch the OAK camera with RGB only:
 ```bash
 ros2 launch depthai_ros_driver_v3 driver.launch.py \
   enable_depth:=false \
-  params_file:=/home/woubraim/oak_1080.yaml
+  params_file:=$HOME/oak_1080.yaml
 ```
 
 The Shared Control node expects the following topics:
@@ -341,23 +341,23 @@ The Shared Control node expects the following topics:
 ### With OAK camera
 
 ```bash
-cd ~/extender_ws/visual_servoing_ws
+cd ~/workspace/extender/extender_workspace
 
 source /opt/ros/jazzy/setup.bash
 source install/setup.bash
 
-ros2 run visual_servoing visual_servoing_node --ros-args -p camera_type:=oak
+ros2 run shared_control visual_servoing_node --ros-args -p camera_type:=oak
 ```
 
 ### With RealSense camera
 
 ```bash
-cd ~/extender_ws/visual_servoing_ws
+cd ~/workspace/extender/extender_workspace
 
 source /opt/ros/jazzy/setup.bash
 source install/setup.bash
 
-ros2 run visual_servoing visual_servoing_node --ros-args -p camera_type:=realsense
+ros2 run shared_control visual_servoing_node --ros-args -p camera_type:=realsense
 ```
 
 ---
@@ -374,7 +374,7 @@ ros2 run visual_servoing visual_servoing_node --ros-args -p camera_type:=realsen
 Example:
 
 ```bash
-ros2 run visual_servoing visual_servoing_node --ros-args \
+ros2 run shared_control visual_servoing_node --ros-args \
   -p camera_type:=oak \
   -p target_frame:=base_link \
   -p tag_size:=0.024 \
@@ -390,7 +390,7 @@ ros2 run visual_servoing visual_servoing_node --ros-args \
 Type:
 
 ```text
-visual_servoing/msg/DetectedGoalArray
+shared_control/msg/DetectedGoalArray
 ```
 
 This topic publishes the detected AprilTags and their estimated poses.
@@ -414,7 +414,7 @@ The node contains a client for:
 Type:
 
 ```text
-visual_servoing/srv/SaveCurrentTagGoal
+shared_control/srv/SaveCurrentTagGoal
 ```
 
 This service is intended to save the pose of the currently visible tag when the `SAVE POSE` button is clicked.
@@ -462,25 +462,25 @@ Terminal 1, launch the OAK camera:
 ```bash
 ros2 launch depthai_ros_driver_v3 driver.launch.py \
   enable_depth:=false \
-  params_file:=/home/woubraim/oak_1080.yaml
+  params_file:=$HOME/oak_1080.yaml
 ```
 
 Terminal 2, run the node:
 
 ```bash
-cd ~/extender_ws/visual_servoing_ws
+cd ~/workspace/extender/extender_workspace
 
 source /opt/ros/jazzy/setup.bash
 source install/setup.bash
 
-ros2 run visual_servoing visual_servoing_node --ros-args -p camera_type:=oak
+ros2 run shared_control visual_servoing_node --ros-args -p camera_type:=oak
 ```
 
 Terminal 3, check detections:
 
 ```bash
 source /opt/ros/jazzy/setup.bash
-source ~/extender_ws/visual_servoing_ws/install/setup.bash
+source ~/workspace/extender/extender_workspace/install/setup.bash
 
 ros2 topic echo /visual_servoing/detected_goals
 ```
@@ -499,19 +499,19 @@ ros2 launch realsense2_camera rs_launch.py \
 Terminal 2, run the node:
 
 ```bash
-cd ~/extender_ws/visual_servoing_ws
+cd ~/workspace/extender/extender_workspace
 
 source /opt/ros/jazzy/setup.bash
 source install/setup.bash
 
-ros2 run visual_servoing visual_servoing_node --ros-args -p camera_type:=realsense
+ros2 run shared_control visual_servoing_node --ros-args -p camera_type:=realsense
 ```
 
 Terminal 3, check detections:
 
 ```bash
 source /opt/ros/jazzy/setup.bash
-source ~/extender_ws/visual_servoing_ws/install/setup.bash
+source ~/workspace/extender/extender_workspace/install/setup.bash
 
 ros2 topic echo /visual_servoing/detected_goals
 ```
