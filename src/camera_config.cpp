@@ -6,7 +6,7 @@
  * used by that camera. Keeping this logic outside the main node avoids hardcoding
  * camera-specific details in the visual servoing pipeline.
  */
-#include "visual_servoing/camera_config.hpp"
+#include "shared_control/camera_config.hpp"
 
 
 

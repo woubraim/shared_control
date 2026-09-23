@@ -1,3 +1,0 @@
-[submodule "third_party/apriltag"]
-	path = third_party/apriltag
-	url = https://github.com/AprilRobotics/apriltag.git

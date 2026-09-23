@@ -11,7 +11,7 @@
  * It does not contain ROS logic, AprilTag logic, or TF logic.
  */
 
-#include "visual_servoing/visual_servoing_display.hpp"
+#include "shared_control/visual_servoing_display.hpp"
 
 #include <array>
 #include <string>

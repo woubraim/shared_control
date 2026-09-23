@@ -8,7 +8,7 @@
  * ROS geometry_msgs::msg::Pose.
  */
 
-#include "visual_servoing/apriltag_pose_estimator.hpp"
+#include "shared_control/apriltag_pose_estimator.hpp"
 
 #include <Eigen/Dense>
 

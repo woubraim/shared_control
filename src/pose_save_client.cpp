@@ -3,7 +3,7 @@
  * @brief Implements the SAVE POSE service client logic.
  */
 
-#include "visual_servoing/pose_save_client.hpp"
+#include "shared_control/pose_save_client.hpp"
 
 
 PoseSaveClient::PoseSaveClient(
@@ -17,7 +17,7 @@ PoseSaveClient::PoseSaveClient(
         throw std::runtime_error("PoseSaveClient requires a valid ROS node pointer");
     }
 
-    client_ = node_->create_client<visual_servoing::srv::SaveCurrentTagGoal>(
+    client_ = node_->create_client<shared_control::srv::SaveCurrentTagGoal>(
         service_name
     );
 }
@@ -66,7 +66,7 @@ void PoseSaveClient::triggerSave()
     }
 
     auto request =
-        std::make_shared<visual_servoing::srv::SaveCurrentTagGoal::Request>();
+        std::make_shared<shared_control::srv::SaveCurrentTagGoal::Request>();
 
     request->tag_id = tag_id;
     request->label = "pose";
@@ -76,7 +76,7 @@ void PoseSaveClient::triggerSave()
     client_->async_send_request(
         request,
         [this, tag_id](
-            rclcpp::Client<visual_servoing::srv::SaveCurrentTagGoal>::SharedFuture future
+            rclcpp::Client<shared_control::srv::SaveCurrentTagGoal>::SharedFuture future
         )
         {
             handleSaveResponse(tag_id, future);
@@ -106,7 +106,7 @@ int PoseSaveClient::getFirstVisibleTagId()
 
 void PoseSaveClient::handleSaveResponse(
     int tag_id,
-    rclcpp::Client<visual_servoing::srv::SaveCurrentTagGoal>::SharedFuture future
+    rclcpp::Client<shared_control::srv::SaveCurrentTagGoal>::SharedFuture future
 )
 {
     try

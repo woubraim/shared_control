@@ -6,7 +6,7 @@
 
 #include <string>
 
-#include "visual_servoing/msg/detected_goal_array.hpp"
+#include "shared_control/msg/detected_goal_array.hpp"
 
 
 /**
@@ -25,7 +25,7 @@ public:
      * @param frame_id Frame in which the poses are expressed.
      * @return Initialized DetectedGoalArray message.
      */
-    static visual_servoing::msg::DetectedGoalArray createMessage(
+    static shared_control::msg::DetectedGoalArray createMessage(
         const rclcpp::Time &stamp,
         const std::string &frame_id
     );
@@ -44,7 +44,7 @@ public:
      * frame_id per goal.
      */
     static void addGoal(
-        visual_servoing::msg::DetectedGoalArray &message,
+        shared_control::msg::DetectedGoalArray &message,
         int tag_id,
         const geometry_msgs::msg::Pose &pose,
         const std::string &frame_id
